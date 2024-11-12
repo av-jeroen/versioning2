@@ -39,7 +39,7 @@ jobs:
           echo "$msg" >> CHANGELOG
       - name: Commit and push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GIT_ACTION_TOKEN }}
         run: |
           git config --global user.email "alfred@avalor.ai"
           git config --global user.name "Alfred"
