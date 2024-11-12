@@ -1,4 +1,4 @@
-name: Increment Patch Version
+name: Increment version and create changelog
 
 on:
   pull_request:
@@ -24,8 +24,13 @@ jobs:
           echo "major=$major" >> $GITHUB_ENV
           echo "minor=$minor" >> $GITHUB_ENV
           echo "patch=$patch" >> $GITHUB_ENV
-      - name: Increment patch version
+      - name: Increment version
         run: |
+          if [[ "${{ github.event.pull_request.title }}" == feature* ]]; then
+            ((minor++))
+          else
+            ((patch++))
+          fi
           new_patch=$((patch + 1))
           new_version="${major}.${minor}.${new_patch}"
           echo "new_version=$new_version" >> $GITHUB_ENV
@@ -40,7 +45,7 @@ jobs:
       - name: Commit and push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # To allow push: In your Github project, go to Settings > Actions > General > Workflow permissions
+        # To allow push: Your Github project > Settings > Actions > General > Workflow permissions
         run: |
           git config --global user.email "alfred@avalor.ai"
           git config --global user.name "Alfred"
