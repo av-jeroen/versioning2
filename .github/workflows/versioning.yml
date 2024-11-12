@@ -29,7 +29,9 @@ jobs:
           echo "1"
           if [[ "${{ github.event.pull_request.title }}" == feature* ]]; then
             echo "2"
+            echo "$minor"
             ((minor++))
+            echo "2.3"
           else
             echo "3"
             ((patch++))
