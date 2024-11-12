@@ -13,21 +13,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract Version Numbers
+      - name: Extract version numbers
         run: |
           current_version=$(cat VERSION)
           current_version=${current_version//[^0-9.]/}
           major=${current_version%%.*}
-          minor=${current_version#*.}
-          patch=${minor#*.}
-          minor=${minor%%.*}
-          echo "Major: $major, Minor: $minor, Patch: $patch" >> $GITHUB_ENV
-      - name: Increment Patch Version
+          minor_patch=${current_version#*.}
+          minor=${minor_patch%%.*}
+          patch=${minor_patch#*.}
+          echo "major=$major" >> $GITHUB_ENV
+          echo "minor=$minor" >> $GITHUB_ENV
+          echo "patch=$patch" >> $GITHUB_ENV
+      - name: Increment patch version
         run: |
           new_patch=$((patch + 1))
           new_version="${major}.${minor}.${new_patch}"
           echo "New version: $new_version" >> $GITHUB_ENV
-      - name: Write Version to File
+      - name: Write version to file
         run: |
           echo "$new_version" > VERSION
       - name: Write to changelog
