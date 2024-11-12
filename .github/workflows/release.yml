@@ -37,3 +37,11 @@ jobs:
           date=$(date '+%Y-%m-%d')
           msg="$date $new_version: ${{ github.event.pull_request.title }} ${{ github.event.pull_request.html_url }}"
           echo "$msg" >> CHANGELOG
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add VERSION
+          git add CHANGELOG
+          git commit -m "Github action: increment version and update changelog"
+          git push origin ${{ github.ref_name }}
