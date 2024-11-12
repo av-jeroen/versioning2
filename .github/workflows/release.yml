@@ -1,0 +1,37 @@
+name: Increment Patch Version
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+      - release
+
+jobs:
+  increment-patch-version:
+    if: ${{ github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract Version Numbers
+        run: |
+          current_version=$(cat VERSION)
+          current_version=${current_version//[^0-9.]/}
+          major=${current_version%%.*}
+          minor=${current_version#*.}
+          patch=${minor#*.}
+          minor=${minor%%.*}
+          echo "Major: $major, Minor: $minor, Patch: $patch" >> $GITHUB_ENV
+      - name: Increment Patch Version
+        run: |
+          new_patch=$((patch + 1))
+          new_version="${major}.${minor}.${new_patch}"
+          echo "New version: $new_version" >> $GITHUB_ENV
+      - name: Write Version to File
+        run: |
+          echo "$new_version" > VERSION
+      - name: Write to changelog
+        run: |
+          date=$(date '+%Y-%m-%d')
+          msg="$date $new_version: ${{ github.event.pull_request.title }} ${{ github.event.pull_request.html_url }}"
+          echo "$msg" >> CHANGELOG
