@@ -8,7 +8,7 @@ on:
       - release
 
 jobs:
-  increment-patch-version:
+  increment-version-and-create-changelog:
     if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
     steps:
@@ -26,13 +26,17 @@ jobs:
           echo "patch=$patch" >> $GITHUB_ENV
       - name: Increment version
         run: |
+          echo "1"
           if [[ "${{ github.event.pull_request.title }}" == feature* ]]; then
+            echo "2"
             ((minor++))
           else
+            echo "3"
             ((patch++))
           fi
-          new_patch=$((patch + 1))
-          new_version="${major}.${minor}.${new_patch}"
+          echo "4"
+          new_version="${major}.${minor}.${patch}"
+          echo "5"
           echo "new_version=$new_version" >> $GITHUB_ENV
       - name: Write version to file
         run: |
