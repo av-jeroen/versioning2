@@ -41,6 +41,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git config --global user.email "alfred@avalor.ai"
+          git config --global user.name "Alfred"
           git add VERSION
           git add CHANGELOG
           git commit -m "Github action: increment version and update changelog"
