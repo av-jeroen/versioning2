@@ -39,7 +39,8 @@ jobs:
           echo "$msg" >> CHANGELOG
       - name: Commit and push changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GIT_ACTION_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # To allow push: In your Github project, go to Settings > Actions > General > Workflow permissions
         run: |
           git config --global user.email "alfred@avalor.ai"
           git config --global user.name "Alfred"
