@@ -28,7 +28,7 @@ jobs:
         run: |
           new_patch=$((patch + 1))
           new_version="${major}.${minor}.${new_patch}"
-          echo "New version: $new_version" >> $GITHUB_ENV
+          echo "new_version=$new_version" >> $GITHUB_ENV
       - name: Write version to file
         run: |
           echo "$new_version" > VERSION
