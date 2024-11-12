@@ -26,19 +26,12 @@ jobs:
           echo "patch=$patch" >> $GITHUB_ENV
       - name: Increment version
         run: |
-          echo "1"
           if [[ "${{ github.event.pull_request.title }}" == feature* ]]; then
-            echo "2"
-            echo "$minor"
-            ((minor++))
-            echo "2.3"
+            ((minor++)) || true
           else
-            echo "3"
-            ((patch++))
+            ((patch++)) || true
           fi
-          echo "4"
           new_version="${major}.${minor}.${patch}"
-          echo "5"
           echo "new_version=$new_version" >> $GITHUB_ENV
       - name: Write version to file
         run: |
