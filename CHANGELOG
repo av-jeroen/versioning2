@@ -6,3 +6,4 @@
 2024-11-13 0.1.5: enhancement: adds first word to lowercase https://github.com/av-jeroen/versioning2/pull/14
 2024-11-13 0.2.5: feature: LowerCase TEST https://github.com/av-jeroen/versioning2/pull/15
 2024-11-13 0.3.0: feature: Set patch to 0 on feature update https://github.com/av-jeroen/versioning2/pull/16
+2024-11-13 0.4.0: feature reset patch to 0 on feature update https://github.com/av-jeroen/versioning2/pull/18
