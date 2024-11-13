@@ -30,6 +30,7 @@ jobs:
           pr_title=$(first_word_to_lowercase "${{ github.event.pull_request.title }}")
           if [[ "$pr_title" == feature* ]]; then
             ((minor++)) || true
+            patch=0
           else
             ((patch++)) || true
           fi
