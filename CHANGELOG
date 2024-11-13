@@ -4,3 +4,4 @@
 2024-11-12 0.1.3: feature: fixes increments that start with 0 https://github.com/av-jeroen/versioning2/pull/12
 2024-11-12 0.1.4: update patch https://github.com/av-jeroen/versioning2/pull/13
 2024-11-13 0.1.5: enhancement: adds first word to lowercase https://github.com/av-jeroen/versioning2/pull/14
+2024-11-13 0.2.5: feature: LowerCase TEST https://github.com/av-jeroen/versioning2/pull/15
