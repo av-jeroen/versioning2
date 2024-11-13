@@ -26,20 +26,23 @@ jobs:
           echo "patch=$patch" >> $GITHUB_ENV
       - name: Increment version
         run: |
-          if [[ "${{ github.event.pull_request.title }}" == feature* ]]; then
+          source scripts/util.sh
+          pr_title=$(first_word_to_lowercase "${{ github.event.pull_request.title }}")
+          if [[ "$pr_title" == feature* ]]; then
             ((minor++)) || true
           else
             ((patch++)) || true
           fi
           new_version="${major}.${minor}.${patch}"
           echo "new_version=$new_version" >> $GITHUB_ENV
+          echo "pr_title"=$pr_title >> $GITHUB_ENV
       - name: Write version to file
         run: |
           echo "$new_version" > VERSION
       - name: Write to changelog
         run: |
           date=$(date '+%Y-%m-%d')
-          msg="$date $new_version: ${{ github.event.pull_request.title }} ${{ github.event.pull_request.html_url }}"
+          msg="$date $new_version: $pr_title ${{ github.event.pull_request.html_url }}"
           echo "$msg" >> CHANGELOG
       - name: Commit and push changes
         env:
