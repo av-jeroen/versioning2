@@ -1,0 +1,27 @@
+name: Linting
+
+on:
+  push:
+    branches:
+      - main
+    # Prevent triggering github actions when merging the version update.
+    # paths-ignore:
+    #   - "VERSION"
+    #   - "CHANGELOG"
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  xx:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
